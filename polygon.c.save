@@ -1,0 +1,43 @@
+#include "primlib.h"
+#include <stdlib.h>
+
+#define START_X1 100
+#define START_Y1 100
+#define START_X2 500
+#define START_Y2 100
+#define START_X3 500
+#define START_Y3 900
+#define START_X4 100
+#define START_Y4 900
+#define EDGES 4
+#define PI 3.14
+
+int getAngle(int edges);
+
+int main(int argc, char* argv[]) {
+  
+    int x;
+  /*
+    if(initGraph()) {
+        exit(3);
+    }
+    /* clear screen */
+    filledRect(0, 0, screenWidth() - 1, screenHeight() - 1, BLACK);
+    int i;
+    
+    for(i = 0; i < EDGES; i++) {
+      
+    }
+    
+    updateScreen();
+    getkey();
+        x = getAngle(4);
+    printf("%d", x);
+    return 0;
+}
+
+int getAngle(int edges) {
+    int angle;
+    angle = (180 * (edges - 2)) / edges;
+    return angle;
+}
