@@ -2,42 +2,39 @@
 #include <stdlib.h>
 #include <math.h>
 
-#define START_X1 300
-#define START_Y1 200
-#define START_EDGE_LENGTH 150
-#define EDGES 6
+#define DEFAULT_XCORD 300 //X axis coordinate of the polygon's centre
+#define DEFAULT_YCORD 200 //Y axis coordinate of the polygon's centre
+#define DEFAULT_VERTICE_LENGTH 150
+#define VERTICES 6 //Number of vertices of the polygon
 #define PI 3.14
-#define ANGLE_STEP 0.15
-#define ZOOM 1.025
-#define FPS 60
+#define ANGLE_STEP 0.15 //Number of radians
+#define ZOOM_STEP 1.025 //Multiplicator of the vertice length
+#define FPS_RATE 60
 
 
 int main(int argc, char* argv[]) {
+    int i, next_xcord, next_ycord, prev_xcord = DEFAULT_XCORD, prev_ycord = DEFAULT_YCORD;;
+    float rotation_angle = 0, vertice_length = DEFAULT_VERTICE_LENGTH;
     SDL_Event event;
-    float rotation_angle = 0, sidelength = START_EDGE_LENGTH;
 
     if(initGraph()) {
         exit(3);
     }
 
     while(1) {
-        filledRect(0, 0, screenWidth() - 1, screenHeight() - 1, BLACK);
-        int i, x_next, y_next, x_prev, y_prev;
-
-        x_prev = START_X1;
-        y_prev = START_Y1;
-
-        for(i = 0; i <= EDGES; i++) {
-            x_next = sidelength * cos((2 * PI * i + rotation_angle) / EDGES) + START_X1;
-            y_next = sidelength * sin((2 * PI * i + rotation_angle) / EDGES) + START_Y1;
+        filledRect(0, 0, screenWidth() , screenHeight() , BLACK); //Black background
+        //Drawing the actual polygon
+        for(i = 0; i <= VERTICES; i++) {
+            next_xcord = vertice_length * cos((2 * PI * i + rotation_angle) / VERTICES) + DEFAULT_XCORD;
+            next_ycord = vertice_length * sin((2 * PI * i + rotation_angle) / VERTICES) + DEFAULT_YCORD;
             if(i != 0)
-                line(x_prev, y_prev, x_next, y_next, WHITE);
-            x_prev = x_next;
-            y_prev = y_next;
+                line(prev_xcord, prev_ycord, next_xcord, next_ycord, WHITE);
+            prev_xcord = next_xcord;
+            prev_ycord = next_ycord;
         }
 
-        updateScreen();
-        SDL_Delay(1000 / FPS);
+        updateScreen(); //Refreshing the screen
+        SDL_Delay(1000 / FPS_RATE); //Setting FPS cap
         SDL_PollEvent(&event); //Event detection
 
         //Handling keyinput without keyrepeat feature
@@ -47,9 +44,9 @@ int main(int argc, char* argv[]) {
         else if (isKeyDown(SDLK_LEFT))
             rotation_angle -= ANGLE_STEP;
         else if (isKeyDown(SDLK_UP))
-            sidelength *= ZOOM ;
+            vertice_length *= ZOOM_STEP ;
         else if (isKeyDown(SDLK_DOWN))
-            sidelength /= ZOOM;
+            vertice_length /= ZOOM_STEP;
         else if (isKeyDown(SDLK_ESCAPE))
             exit(0);*/
 
@@ -64,10 +61,10 @@ int main(int argc, char* argv[]) {
                        rotation_angle += ANGLE_STEP;
                        break;
                     case SDLK_UP:
-                       sidelength *= ZOOM;
+                       vertice_length *= ZOOM_STEP;
                        break;
                     case SDLK_DOWN:
-                       sidelength /= ZOOM;
+                       vertice_length /= ZOOM_STEP;
                        break;
                     case SDLK_ESCAPE:
                        exit(1);
