@@ -2,8 +2,8 @@
 #include <stdlib.h>
 #include <math.h>
 
-#define DEFAULT_XCORD 300 //X axis coordinate of the polygon's centre
-#define DEFAULT_YCORD 200 //Y axis coordinate of the polygon's centre
+#define DEFAULT_XCORD screenWidth() / 2 //X axis coordinate of the polygon's centre
+#define DEFAULT_YCORD screenHeight() / 2 //Y axis coordinate of the polygon's centre
 #define DEFAULT_VERTICE_LENGTH 150
 #define VERTICES 6 //Number of vertices of the polygon
 #define PI 3.14
@@ -13,16 +13,16 @@
 
 
 int main(int argc, char* argv[]) {
-    int i, next_xcord, next_ycord, prev_xcord = DEFAULT_XCORD, prev_ycord = DEFAULT_YCORD;;
-    float rotation_angle = 0, vertice_length = DEFAULT_VERTICE_LENGTH;
-    SDL_Event event;
-
     if(initGraph()) {
         exit(3);
     }
 
+    int i, next_xcord, next_ycord, prev_xcord = DEFAULT_XCORD, prev_ycord = DEFAULT_YCORD;;
+    float rotation_angle = 0, vertice_length = DEFAULT_VERTICE_LENGTH;
+    SDL_Event event;
+
     while(1) {
-        filledRect(0, 0, screenWidth() , screenHeight() , BLACK); //Black background
+        filledRect(0, 0, screenWidth(), screenHeight(), BLACK); //Black background
         //Drawing the actual polygon
         for(i = 0; i <= VERTICES; i++) {
             next_xcord = vertice_length * cos((2 * PI * i + rotation_angle) / VERTICES) + DEFAULT_XCORD;
@@ -31,7 +31,7 @@ int main(int argc, char* argv[]) {
                 line(prev_xcord, prev_ycord, next_xcord, next_ycord, WHITE);
             prev_xcord = next_xcord;
             prev_ycord = next_ycord;
-        }
+    }
 
         updateScreen(); //Refreshing the screen
         SDL_Delay(1000 / FPS_RATE); //Setting FPS cap
