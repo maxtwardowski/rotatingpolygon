@@ -109,7 +109,7 @@ int getkey()
 	return event.key.keysym.sym;
 }
 
-/*int isKeyDown(int key)
+int isKeyDown(int key)
 {
  Uint8* keytable;
  int numkeys;
@@ -118,31 +118,7 @@ int getkey()
  keytable=SDL_GetKeyState(&numkeys);
  assert(key<numkeys);
  return keytable[key];
-}*/
-
-/*void isKeyDown() {
-    SDL_PollEvent( &event );
-           switch( event.type ){
-               case SDL_KEYDOWN:
-                   switch( event.key.keysym.sym ){
-                       case SDLK_LEFT:
-                           rotation_angle -= ANGLE_STEP;
-                           break;
-                       case SDLK_RIGHT:
-                           rotation_angle += ANGLE_STEP;
-                           break;
-                       case SDLK_UP:
-                           sidelength *= ZOOM;
-                           break;
-                       case SDLK_DOWN:
-                           sidelength /= ZOOM;
-                           break;
-                       default:
-                           break;
-                   }
-               }
-}*/
-
+}
 
 int initGraph()
 {
