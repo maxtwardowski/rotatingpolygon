@@ -38,7 +38,20 @@ int main(int argc, char* argv[]) {
 
         updateScreen();
         SDL_Delay(1000 / FPS);
-        SDL_PollEvent(&event);
+        SDL_PollEvent(&event); //Event detection
+
+        //Handling keyinput without keyrepeat feature
+        /*getkey();
+        if (isKeyDown(SDLK_RIGHT))
+            rotation_angle += ANGLE_STEP;
+        else if (isKeyDown(SDLK_LEFT))
+            rotation_angle -= ANGLE_STEP;
+        else if (isKeyDown(SDLK_UP))
+            sidelength *= ZOOM ;
+        else if (isKeyDown(SDLK_DOWN))
+            sidelength /= ZOOM;
+        else if (isKeyDown(SDLK_ESCAPE))
+            exit(0);*/
 
         //Handling keyinput with keyrepeat feature
         switch(event.type){
