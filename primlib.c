@@ -13,7 +13,7 @@
 
 
 static SDL_Surface *screen;
-static Uint32 colors[COLOR_MAX] = {0x000000ff, 
+static Uint32 colors[COLOR_MAX] = {0x000000ff,
                                0xff0000ff, 0x00ff00ff, 0x0000ffff,
                                0x00ffffff, 0xff00ffff, 0xffff00ff,
                                0xffffffff};
@@ -78,12 +78,12 @@ void textout(int x, int y, char *s, enum color c)
 {
 	assert(c<COLOR_MAX);
 	stringColor(screen, x, y, s, colors[c]);
-} 
+}
 
 int pollkey()
 {
 	SDL_Event event;
-	while ( SDL_PollEvent(&event) ) 
+	while ( SDL_PollEvent(&event) )
 	{
 		switch (event.type) {
 			case SDL_KEYDOWN:
@@ -109,22 +109,47 @@ int getkey()
 	return event.key.keysym.sym;
 }
 
-int isKeyDown(int key)
+/*int isKeyDown(int key)
 {
  Uint8* keytable;
  int numkeys;
  SDL_PumpEvents();
+
  keytable=SDL_GetKeyState(&numkeys);
  assert(key<numkeys);
  return keytable[key];
-}
+}*/
+
+/*void isKeyDown() {
+    SDL_PollEvent( &event );
+           switch( event.type ){
+               case SDL_KEYDOWN:
+                   switch( event.key.keysym.sym ){
+                       case SDLK_LEFT:
+                           rotation_angle -= ANGLE_STEP;
+                           break;
+                       case SDLK_RIGHT:
+                           rotation_angle += ANGLE_STEP;
+                           break;
+                       case SDLK_UP:
+                           sidelength *= ZOOM;
+                           break;
+                       case SDLK_DOWN:
+                           sidelength /= ZOOM;
+                           break;
+                       default:
+                           break;
+                   }
+               }
+}*/
+
 
 int initGraph()
 {
 	const SDL_VideoInfo *info;
 	Uint8  video_bpp;
 	Uint32 videoflags;
-        
+
         if(screen)
         {
 		fprintf(stderr,"initGraph called twice\n");
@@ -145,7 +170,7 @@ int initGraph()
 		video_bpp = 16;
 	}
 	videoflags = SDL_SWSURFACE | SDL_DOUBLEBUF;
-	
+
 	/* Set 640x480 video mode */
 	if ( (screen=SDL_SetVideoMode(640,480,video_bpp,videoflags)) == NULL ) {
 		fprintf(stderr, "Couldn't set %ix%i video mode: %s\n",640,480,SDL_GetError());

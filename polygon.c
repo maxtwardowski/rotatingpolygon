@@ -9,10 +9,11 @@
 #define PI 3.14
 #define ANGLE_STEP 0.15
 #define ZOOM 1.025
+#define FPS 60
 
 
 int main(int argc, char* argv[]) {
-
+    SDL_Event event;
     float rotation_angle, sidelength;
     rotation_angle = 0;
 
@@ -42,17 +43,29 @@ int main(int argc, char* argv[]) {
 
         updateScreen();
         SDL_Delay(1000 / FPS);
-        getkey();
-        if (isKeyDown(SDLK_RIGHT))
-            rotation_angle += ANGLE_STEP;
-        else if (isKeyDown(SDLK_LEFT))
-            rotation_angle -= ANGLE_STEP;
-        else if (isKeyDown(SDLK_UP))
-            sidelength *= ZOOM ;
-        else if (isKeyDown(SDLK_DOWN))
-            sidelength /= ZOOM;
-        else if (isKeyDown(SDLK_ESCAPE))
-            exit(0);
+        //getkey();
+        SDL_PollEvent( &event );
+               switch( event.type ){
+                   case SDL_KEYDOWN:
+                       switch( event.key.keysym.sym ){
+                           case SDLK_LEFT:
+                               rotation_angle -= ANGLE_STEP;
+                               break;
+                           case SDLK_RIGHT:
+                               rotation_angle += ANGLE_STEP;
+                               break;
+                           case SDLK_UP:
+                               sidelength *= ZOOM;
+                               break;
+                           case SDLK_DOWN:
+                               sidelength /= ZOOM;
+                               break;
+                           case SDLK_ESCAPE:
+                               exit(1);
+                           default:
+                               break;
+                       }
+                   }
     }
     return 0;
 }

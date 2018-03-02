@@ -17,6 +17,6 @@ int screenHeight();
 void updateScreen();
 int pollkey();
 int getkey();
-int isKeyDown(int key);
+//void isKeyDown();
 
 #endif /* __PRIMLIB_H__ */
