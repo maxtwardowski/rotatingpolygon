@@ -24,11 +24,10 @@ int main(int argc, char* argv[]) {
     while(1) {
         filledRect(0, 0, screenWidth(), screenHeight(), BLACK); //Black background
         //Drawing the actual polygon
-        for(i = 0; i <= VERTICES; i++) {
+        for(i = 1; i <= VERTICES; i++) {
             next_xcord = vertice_length * cos((2 * PI * i + rotation_angle) / VERTICES) + DEFAULT_XCORD;
             next_ycord = vertice_length * sin((2 * PI * i + rotation_angle) / VERTICES) + DEFAULT_YCORD;
-            if(i != 0)
-                line(prev_xcord, prev_ycord, next_xcord, next_ycord, WHITE);
+            line(prev_xcord, prev_ycord, next_xcord, next_ycord, WHITE); //Drawing the vertice
             prev_xcord = next_xcord;
             prev_ycord = next_ycord;
     }
@@ -53,7 +52,7 @@ int main(int argc, char* argv[]) {
         //Handling keyinput with keyrepeat feature
         switch(event.type){
             case SDL_KEYDOWN:
-                switch( event.key.keysym.sym ){
+                switch(event.key.keysym.sym){
                     case SDLK_LEFT:
                        rotation_angle -= ANGLE_STEP;
                        break;
